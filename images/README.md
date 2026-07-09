@@ -7,3 +7,10 @@
 ## 🏗 Architecture
 
 ![Architecture](architecture-diagram.png)
+
+---
+
+## 🏗 Workflow
+
+![Workflow](workflow.png)
+
