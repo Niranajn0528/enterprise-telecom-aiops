@@ -1,9 +1,9 @@
 # 🚀 Enterprise Telecom AI Ops
 
-![Cover](images/cover-banner.png)
+![Cover](cover-banner.png)
 
 ---
 
 ## 🏗 Architecture
 
-![Architecture](images/architecture-diagram.png)
+![Architecture](architecture-diagram.png)
