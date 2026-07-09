@@ -14,3 +14,28 @@
 
 ![Workflow](workflow.png)
 
+---
+
+## 🏗 AI-output
+
+![AI-output](ai-output.png)
+
+---
+
+## 🏗 Dashboard
+
+![Dashboard](dashboard.png)
+
+---
+
+## 🏗 Email-Report
+
+![Email-Report](email-report.png)
+
+---
+
+## 🏗 Demo
+
+![Demo](telecom_incident_gifs.png)
+
+
