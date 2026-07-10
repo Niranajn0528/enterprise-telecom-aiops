@@ -1,0 +1,7 @@
+Timestamp,Network Element,Interface,Failure Domain,Severity,Issue Type,Root Cause,Escalation
+2026-06-21T20:25:02.598,UPF,N4,PFCP,High,PFCP Association Failure,N4 connectivity issue between SMF and UPF,TRUE
+2026-06-21T20:25:02.598,SMF,N4,Session Establishment,High,N4 Session Establishment Failed,SMF-UPF session setup failure,TRUE
+2026-06-21T20:25:02.599,AMF,N1,Registration,Medium,Registration Reject,Subscriber authentication failed,FALSE
+2026-06-21T20:25:02.601,UDM,Nudm_S11,Authentication,Low,Subscriber Lookup Failed,Subscriber profile not found,FALSE
+2026-06-21T20:25:07.210,SMF,N11,PDU Session,Medium,PDU Session Reject,Requested DNN unavailable,FALSE
+2026-06-21T20:25:10.110,UPF,GTP-U,Transport,High,GTP-U Tunnel Failure,Tunnel endpoint unreachable,TRUE

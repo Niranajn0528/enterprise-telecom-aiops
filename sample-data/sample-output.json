@@ -1,0 +1,53 @@
+{
+  "analysis_timestamp": "2026-06-21T20:25:03Z",
+  "incident_summary": {
+    "total_incidents": 6,
+    "critical": 2,
+    "high": 2,
+    "medium": 1,
+    "low": 1
+  },
+  "incidents": [
+    {
+      "network_element": "UPF",
+      "severity": "High",
+      "issue_type": "PFCP Association Failure",
+      "interface": "N4",
+      "root_cause": "N4 connectivity issue between SMF and UPF",
+      "recommendation": "Verify PFCP connectivity and restart UPF if required.",
+      "escalation": true
+    },
+    {
+      "network_element": "SMF",
+      "severity": "High",
+      "issue_type": "N4 Session Establishment Failed",
+      "interface": "N4",
+      "root_cause": "SMF-UPF session establishment failure",
+      "recommendation": "Validate PFCP session establishment and check UPF status.",
+      "escalation": true
+    },
+    {
+      "network_element": "AMF",
+      "severity": "Medium",
+      "issue_type": "Registration Reject",
+      "interface": "N1",
+      "root_cause": "Subscriber authentication failed",
+      "recommendation": "Verify subscriber credentials in UDM.",
+      "escalation": false
+    },
+    {
+      "network_element": "UDM",
+      "severity": "Low",
+      "issue_type": "Subscriber Lookup Failed",
+      "interface": "Nudm_S11",
+      "root_cause": "Subscriber profile not found",
+      "recommendation": "Check subscriber provisioning.",
+      "escalation": false
+    }
+  ],
+  "executive_summary": {
+    "overall_health": "Degraded",
+    "ai_confidence": "96%",
+    "recommended_action": "Immediate investigation of N4 connectivity and PFCP session establishment."
+  }
+}

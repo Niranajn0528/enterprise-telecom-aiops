@@ -1,0 +1,12 @@
+2026-06-21 20:25:02 [UPF] ERROR: PFCP Association Failure
+2026-06-21 20:25:02 [SMF] ERROR: N4 Session Establishment Failed
+2026-06-21 20:25:02 [AMF] WARNING: Registration Reject
+2026-06-21 20:25:02 [UDM] INFO: Subscriber Lookup Failed
+2026-06-21 20:25:05 [UPF] ERROR: PFCP Session Timeout
+2026-06-21 20:25:07 [SMF] WARNING: PDU Session Reject
+2026-06-21 20:25:09 [AMF] INFO: UE Registration Retry
+2026-06-21 20:25:10 [UPF] ERROR: GTP-U Tunnel Failure
+2026-06-21 20:25:12 [SMF] ERROR: Session Context Release
+2026-06-21 20:25:15 [UDM] INFO: Authentication Successful
+2026-06-21 20:25:18 [AMF] INFO: Registration Accept
+2026-06-21 20:25:21 [SMF] INFO: PDU Session Established
