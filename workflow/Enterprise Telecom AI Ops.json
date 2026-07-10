@@ -1,0 +1,386 @@
+{
+  "name": "Enterprise Telecom AI Ops",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "=telecom-alert",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c1abe315-43dd-457f-a57d-161d5394f6ff",
+      "name": "Webhook",
+      "webhookId": "bcf972a1-d048-4e89-998f-f3ff3e332458"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a Telecom RCA Agent.\n\nReturn ONLY JSON.\n\n{\n  \"issue_type\":\"\",\n  \"severity\":\"\",\n  \"priority\":\"\",\n  \"root_cause\":\"\",\n  \"assignment_team\":\"\",\n  \"recommended_action\":\"\",\n  \"escalation_required\":false\n}\n\nIncident:\n{{$json.body.issue}}\n\nNetwork Element:\n{{$json.body.network_element}}\n\nAffected Users:\n{{$json.body.affected_users}}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        208,
+        0
+      ],
+      "id": "b2fc19f9-2e19-4a1e-98ba-c522c561cf9c",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        144,
+        208
+      ],
+      "id": "ab9fb02a-a79b-46f9-b75f-68d82ef719f4",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "PlAjJlgiud39IeoJ",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1MjBoo7W1jfRm1_2Nv_0fkShX_x4km_2RPcja33B2vBU",
+          "mode": "list",
+          "cachedResultName": "AI Email Analysis",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MjBoo7W1jfRm1_2Nv_0fkShX_x4km_2RPcja33B2vBU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 625416064,
+          "mode": "list",
+          "cachedResultName": "Telecom_Incident_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MjBoo7W1jfRm1_2Nv_0fkShX_x4km_2RPcja33B2vBU/edit#gid=625416064"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Ticket ID": "={{ \"INC-\" + Date.now() }}",
+            "Timestamp": "={{ $now }}",
+            "Issue Type": "={{$json.issue_type}}",
+            "Severity": "={{$json.severity}}",
+            "Priority": "={{$json.priority}}",
+            "Root Cause": "={{$json.root_cause}}",
+            "Network Element": "={{$json.recommended_action}}",
+            "Assignment Team": "={{$json.assignment_team}}",
+            "Escalated": "={{$json.escalation_required}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Ticket ID",
+              "displayName": "Ticket ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Issue Type",
+              "displayName": "Issue Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Severity",
+              "displayName": "Severity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Root Cause",
+              "displayName": "Root Cause",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Network Element",
+              "displayName": "Network Element",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Assignment Team",
+              "displayName": "Assignment Team",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Escalated",
+              "displayName": "Escalated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        656,
+        0
+      ],
+      "id": "e54a90ed-8f9d-4e13-a87c-30986074bac8",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "OMlYWQEiATS1gTlF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "695a8ed5-3541-405a-b8bc-3393ce3a125c",
+              "leftValue": "={{$json.escalation_required}}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        624,
+        144
+      ],
+      "id": "dd312138-ddcf-4951-a6b8-4058927531c5",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "project": {
+          "__rl": true,
+          "value": "10001",
+          "mode": "list",
+          "cachedResultName": "telecom-ai-ops"
+        },
+        "issueType": {
+          "__rl": true,
+          "value": "10007",
+          "mode": "list",
+          "cachedResultName": "Task"
+        },
+        "summary": "={{ $json.issue_type }}",
+        "additionalFields": {
+          "description": "=Root Cause: {{$json.root_cause}}\n\nSeverity: {{$json.severity}}\n\nPriority: {{$json.priority}}\n\nRecommended Action:\n{{$json.recommended_action}}"
+        }
+      },
+      "type": "n8n-nodes-base.jira",
+      "typeVersion": 1,
+      "position": [
+        848,
+        128
+      ],
+      "id": "5ebf56ad-eea4-4ed6-82c4-f8f774dcb268",
+      "name": "Create an issue",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "DD76XcOZIWrjlmPW",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "niranjan.arathi28@gmail.com",
+        "subject": "={{ \"Critical Incident - \" + $node[\"Parse RCA\"].json.issue_type }}",
+        "emailType": "text",
+        "message": "=Ticket Created.  \nissue_type: {{$node[\"Parse RCA\"].json.issue_type}}\nSeverity: {{$node[\"Parse RCA\"].json.severity}}  \nPriority: {{$node[\"Parse RCA\"].json.priority}} \nRoot Cause: {{$node[\"Parse RCA\"].json.root_cause}}  \nAction: {{$node[\"Parse RCA\"].json.recommended_action}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1056,
+        128
+      ],
+      "id": "0aa3880a-802b-4f1f-bc02-105aba7e2f05",
+      "name": "Send a message",
+      "webhookId": "81c485da-6076-4058-b085-0ea4657642ee",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6QWqgT6JJuGCiocc",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const cleaned = $json.text\n  .replace(/```json/g, '')\n  .replace(/```/g, '')\n  .trim();\n\nconst data = JSON.parse(cleaned);\n\nreturn [\n  {\n    json: data\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        0
+      ],
+      "id": "5c4cc339-ad71-4b07-9968-876b111a062f",
+      "name": "Parse RCA"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Parse RCA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Create an issue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an issue": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse RCA": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fb02a67d-f172-4431-912d-d3e6fa1d476a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fadcc29a1ef0d6c91da020448df2bbe59980d81b38e29237657fe57d15485c80"
+  },
+  "id": "UJYYltHIEzAt7yS8",
+  "tags": []
+}
