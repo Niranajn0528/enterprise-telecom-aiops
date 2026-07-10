@@ -36,6 +36,6 @@
 
 ## 🏗 Demo
 
-![Demo](telecom_incident_gifs.mp4)
+![Telecom_Incident_Gifs](telecom_incident_gifs.mp4)
 
 
